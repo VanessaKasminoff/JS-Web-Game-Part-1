@@ -1,11 +1,18 @@
-function newImage(src, left, bottom) {
+function newImage(src) {
   let img = document.createElement("img");
   img.src = src;
-  img.style.position = "fixed";
-  img.style.left = left;
-  img.style.bottom = bottom;
   document.body.append(img);
   return img
+}
+
+function move(img) {
+  img.style.position = "fixed";
+
+  function moveToCoordinates(left, bottom) {
+    img.style.left = left + 'px';
+    img.style.bottom = bottom + 'px';
+  }
+  return {to: moveToCoordinates}
 }
 
 function tileImg(url, top, left, width, height) {
@@ -20,9 +27,10 @@ function tileImg(url, top, left, width, height) {
   document.body.append(bgDiv);
 }
 
-function newItem(src, left, bottom) {
-  let item = newImage(src, left, bottom)
+function newItem(src) {
+  let item = newImage(src)
   addToInventory(item, src)
+  return item
 }
   
 function addToInventory (item, src) {
@@ -37,9 +45,6 @@ function addToInventory (item, src) {
 
 function newInventory(){
   let inventory = document.createElement('div')
-  inventory.style.position = 'fixed'
-  inventory.style.bottom = '0px';
-  inventory.style.left = '0px'
   inventory.style.width = '100%'
   inventory.style.height = '100px'
   inventory.style.display = 'flex'
@@ -57,14 +62,15 @@ tileImg("assets/sky.png", "0px", "0px", "100%", "48%");
 tileImg("assets/grass.png", "48%", "0px", "100%", "67%");
 
 let returnedInventory = newInventory();
+move(returnedInventory).to(0, 0);
 
-newImage("assets/green-character.gif", "100px", "100px");
-newImage("assets/pine-tree.png", "450px", "200px");
-newImage("assets/tree.png", "200px", "300px");
-newImage("assets/pillar.png", "350px", "100px");
-newImage("assets/crate.png", "150px", "200px");
-newImage("assets/well.png", "500px", "425px");
+move(newImage("assets/green-character.gif")).to(100, 100);
+move(newImage("assets/pine-tree.png")).to(450, 200);
+move(newImage("assets/tree.png")).to(200, 300);
+move(newImage("assets/pillar.png")).to(350, 100);
+move(newImage("assets/crate.png")).to(150, 200);
+move(newImage("assets/well.png")).to(500, 425);
 
-newItem("assets/sword.png", "500px", "405px");
-newItem("assets/shield.png", "165px", "185px");
-newItem("assets/staff.png", "600px", "100px");
+move(newItem("assets/sword.png")).to(500, 405);
+move(newItem("assets/shield.png")).to(165, 185);
+move(newItem("assets/staff.png")).to(600, 100);
