@@ -5,6 +5,7 @@ function newImage(src, left, bottom) {
   img.style.left = left;
   img.style.bottom = bottom;
   document.body.append(img);
+  return img
 }
 
 function tileImg(url, top, left, width, height) {
@@ -20,20 +21,42 @@ function tileImg(url, top, left, width, height) {
 }
 
 function newItem(src, left, bottom) {
-  let playerItem = document.createElement("img");
-  playerItem.src = src;
-  playerItem.style.position = "fixed";
-  playerItem.style.left = left;
-  playerItem.style.bottom = bottom;
-  document.body.append(playerItem);
-
-  playerItem.addEventListener('dblclick', function () {
-    playerItem.remove()
-  })
+  let item = newImage(src, left, bottom)
+  addToInventory(item, src)
 }
+  
+function addToInventory (item, src) {
+  item.addEventListener('click', function () {
+    item.remove()
+    let inventoryItem = document.createElement('img')
+    inventoryItem.src = src
+    returnedInventory.append(inventoryItem)
+  })
+  console.log(addToInventory)
+}
+
+function newInventory(){
+  let inventory = document.createElement('div')
+  inventory.style.position = 'fixed'
+  inventory.style.bottom = '0px';
+  inventory.style.left = '0px'
+  inventory.style.width = '100%'
+  inventory.style.height = '100px'
+  inventory.style.display = 'flex'
+  inventory.style.flexDirection = 'row'
+  inventory.style.alignItems = 'center'
+  inventory.style.justifyContent = 'space-evenly'
+  inventory.style.border = '2px solid black'
+  inventory.style.backgroundColor = 'brown'
+  document.body.append(inventory)
+  return inventory
+}
+
 
 tileImg("assets/sky.png", "0px", "0px", "100%", "48%");
 tileImg("assets/grass.png", "48%", "0px", "100%", "67%");
+
+let returnedInventory = newInventory();
 
 newImage("assets/green-character.gif", "100px", "100px");
 newImage("assets/pine-tree.png", "450px", "200px");
