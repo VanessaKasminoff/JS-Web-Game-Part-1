@@ -57,7 +57,6 @@ function newInventory(){
   return inventory
 }
 
-
 tileImg("assets/sky.png", "0px", "0px", "100%", "48%");
 tileImg("assets/grass.png", "48%", "0px", "100%", "67%");
 
